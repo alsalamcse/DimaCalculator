@@ -9,10 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainCalcActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final  R = ;
-    private EditText etNandroid.R.attrum1;
     private TextView qustionMark;
-    private EditText edNum2;
+    private EditText edNum2,etNum1;
     private TextView tvResult;
     private EditText edResult;
     private Button btnPlus;
@@ -52,67 +50,85 @@ public class MainCalcActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
 
-        //3.to get value from the edit text filed
-        String stNum1 = etNum1.getText().toString();
-        String stNum2= edNum2.getText().toString();
-        //to convert text number to real number
 
+        //to convert text number to real number
+char chop=' ';
 
         if (view == btnPlus) {
         //to react this event
             edResult.setText("+");
+            chop='+';
         }
         if (view == btnMinest)
         {
             edResult.setText("-");
+            chop='-';
         }
         if (view == btn3la)
         {
             edResult.setText("/");
+            chop='/';
         }
         if (view == btnFE)
         {
             edResult.setText("x");
+            chop='x';
         }
         if (view == btnKwa)
         {
             edResult.setText("^");
+            chop='^';
 
         }
-        if (view == btnyosawe)
-        {
-            boolean isOk=true;
-            if (stNum1.length()==0)// if the field is empty
+
+        if (view == btnyosawe) {
+            //3.to get value from the edit text filed
+
+            String stNum1 = etNum1.getText().toString();
+            String stNum2 = edNum2.getText().toString();
+
+            boolean isOk = true;
+            if (stNum1.length() == 0)// if the field is empty
+            {
+                isOk = false;
+                etNum1.setError("Give number");
+            }
+
+
+            if (stNum2.length()==0)
             {
                 isOk=false;
-                stNum1.setError("Give number");
+                edNum2.setError("Give number");
             }
-            double num1 = Double.parseDouble(stNum1);
-            double num2= Double.parseDouble(stNum2);
 
-            double res=0;
-           String op=edResult.getText().toString();
-            if(op.equals("+"))
-            {
-                 res =num1+num2;
-                edResult.setText(res+"");
+            if (isOk) {
+                double num1 = Double.parseDouble(stNum1);
+                double num2= Double.parseDouble(stNum2);
+                double res=0;
+                String op=edResult.getText().toString();
+                if(op.equals("+"))
+                {
+                     res =num1+num2;
+                    edResult.setText(res+"");
+                }
+                if(op.equals("-")){
+                    res=num1-num2;
+                    edResult.setText(res+"");
+                }
+                if(op.equals("x")){
+                    res=num1*num2;
+                    edResult.setText(res+"");
+                }
+                if(op.equals("/")){
+                    res=num1/num2;
+                    edResult.setText(res+"");
+                }
+                if(op.equals("^")){
+                    res=Math.pow(num1,num2);
+                    edResult.setText(res+"");
+                }
             }
-            if(op.equals("-")){
-                res=num1-num2;
-                edResult.setText(res+"");
-            }
-            if(op.equals("x")){
-                res=num1*num2;
-                edResult.setText(res+"");
-            }
-            if(op.equals("/")){
-                res=num1/num2;
-                edResult.setText(res+"");
-            }
-            if(op.equals("^")){
-                res=Math.pow(num1,num2);
-                edResult.setText(res+"");
-            }
+
         }
 
         if (view == btnClear)
